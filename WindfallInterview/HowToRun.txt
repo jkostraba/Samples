@@ -1,0 +1,9 @@
+# How to run the java Spreadsheet application:
+#   unzip the project, open a shell, cd into the project root
+#   execute the following java command:
+
+D:\Projects\WindfallInterview>java -jar kostraba-interview.jar testFiles\2.in.txt
+14.00,23.00
+9.00,12.00
+
+# Note that the system JRE must be java 1.8 or later.
