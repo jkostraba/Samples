@@ -1,0 +1,140 @@
+swagger: '2.0'
+info:
+  version: '1'
+  title: apitest-swagger
+  description: apitest-swagger
+  
+# Added by API Auto Mocking Plugin
+host: virtserver.swaggerhub.com
+# basePath: /Golden-Rule/apitest-swagger/1
+
+schemes:
+ - https
+ - http
+paths:
+  /contacts:
+    get:
+     description: Report a list of all contacts
+     
+     parameters: []
+     
+     responses:
+        200:
+          description: Success
+          
+  /contact:
+    get:
+     description: Report a specific contact
+     
+     parameters:
+        - name: attribute
+          in: query
+          type: string
+          description: attribute to query/search
+        - name: matchString
+          in: query
+          type: string
+          description: match string to apply to attributes
+     
+     responses:
+        200:
+          description: Success
+        400:
+          description: Exception / error
+        404: 
+          description: No matching contact found
+          
+    post:
+     description: Create / Update a specific contact
+     
+     parameters:
+        - name: email
+          in: query
+          type: string
+          description: email / ID of contact
+     
+     responses:
+        200:
+          description: Success
+        400:
+          description: Exception / error
+          
+    delete:
+     description: Delete a specific contact
+     
+     parameters:
+        - name: email
+          in: query
+          type: string
+          description: email / ID of contact
+     
+     responses:
+        200:
+          description: Success
+        400:
+          description: Exception / error
+        404: 
+          description: No matching contact found
+          
+  /contactLists:
+    get:
+     description: Report all contact lists
+     
+     parameters: []
+     
+     responses:
+        200:
+          description: Success
+   
+  /contactList:
+    get:
+     description: Report a specific contact list
+     
+     parameters:
+        - name: name
+          in: query
+          type: string
+          description: name / ID of contact list
+     
+     responses:
+        200:
+          description: Success
+        400:
+          description: Exception / error
+        404: 
+          description: specified list not found
+          
+    post:
+     description: Create / Update a specific contact list
+     
+     parameters:
+        - name: name
+          in: query
+          type: string
+          description: email / ID of contact
+     
+     responses:
+        200:
+          description: Success
+        400:
+          description: Exception / error
+          
+    delete:
+     description: Delete a specific contact list
+     
+     parameters:
+        - name: name
+          in: query
+          type: string
+          description: name / ID of contact list
+     
+     responses:
+        200:
+          description: Success
+        400:
+          description: Exception / error
+        404: 
+          description: specified contact not found
+          
+# Added by API Auto Mocking Plugin
+basePath: /Golden-Rule/apitest-java/1
