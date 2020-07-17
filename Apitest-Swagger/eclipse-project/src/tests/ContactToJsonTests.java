@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import com.google.gson.stream.JsonWriter;
+
 import apitest.Contact;
+import apitest.JsonUtils;
 
 public class ContactToJsonTests
 implements TestCase {
@@ -18,7 +21,6 @@ implements TestCase {
 	}
 	
 	private void testNoAttribs() {
-	
 		try {
 			this.testsRun++;
 			String expectStr = 
@@ -28,7 +30,9 @@ implements TestCase {
 					"   }\n" + 
 					"]";
 			Contact con = new Contact( "jk@somewhere.com", new HashMap<String,String>() );
-			String conStr = con.toJson();
+			JsonWriter writer = JsonUtils.makeWriter();
+			con.toJson(writer);
+			String conStr = JsonUtils.closeWriter(writer);
 			if( ! expectStr.equals( conStr )) {
 				throw new Exception( "simplest Contact.toJson() match fail" );
 			}
@@ -38,7 +42,6 @@ implements TestCase {
 	}
 	
 	private void test2Attribs() {
-	
 		try {
 			this.testsRun++;
 			String expectStr = 
@@ -53,7 +56,9 @@ implements TestCase {
 			attribs.put( "address", "1234 address lane" );
 			attribs.put( "phone", "303-555-1212" );
 			Contact con = new Contact( "jk@somewhere.com", attribs );
-			String conStr = con.toJson();
+			JsonWriter writer = JsonUtils.makeWriter();
+			con.toJson(writer);
+			String conStr = JsonUtils.closeWriter(writer);
 			if( ! expectStr.equals( conStr )) {
 				throw new Exception( "2 attribute Contact.toJson() match fail" );
 			}
@@ -64,14 +69,12 @@ implements TestCase {
 
 	@Override
 	public void run() {
-		
 		this.testNoAttribs();
 		this.test2Attribs();
 	}
 
 	@Override
 	public List<String> getErrors() {
-	
 		ArrayList<String> retVal = new ArrayList<>();
 		for( Exception ex : this.exList ) {
 			retVal.add( ex.getMessage() );

@@ -1,7 +1,5 @@
 package apitest;
 
-import java.io.ByteArrayOutputStream;
-import java.io.OutputStreamWriter;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
@@ -26,6 +24,7 @@ public class Contact {
 	
 	public Contact( String _key, HashMap<String,String> _values ) {
 		this.key = _key;
+		this.values.put( KEY_ATTRIB, _key );
 		this.values.putAll( _values );
 	}
 	
@@ -39,24 +38,7 @@ public class Contact {
 		return retVal;
 	}
 	
-	public String toJson() throws Exception {
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-	    JsonWriter writer = new JsonWriter(new OutputStreamWriter(baos, "UTF-8"));
-	    writer.setIndent("   ");
-	    writer.beginArray();
-	    
-	    this.toJsonObject( writer );
-	    
-	    writer.endArray();
-	    writer.flush();
-	    
-	    String jsonStr = baos.toString();
-	    writer.close();
-	    
-		return jsonStr;
-	}
-	
-	public void toJsonObject( JsonWriter _writer ) throws Exception {
+	public void toJson( JsonWriter _writer ) throws Exception {
 	
 		_writer.beginObject();
 	    for( String attrib : this.values.keySet() ) {
@@ -65,7 +47,8 @@ public class Contact {
 	    _writer.endObject();
 	}
 	
-	public static Contact fromJson( JsonReader reader ) throws Exception {
+	public static Contact fromJson( String _key, JsonReader reader ) throws Exception {
+	
 		Contact returnVal = null;
 		
 		reader.beginObject();
@@ -81,9 +64,8 @@ public class Contact {
 		}
 		reader.endObject();
 		
-		String key = valueMap.get(KEY_ATTRIB);
-		if( key!=null ) {
-			returnVal = new Contact( key, valueMap );
+		if( _key!=null ) {
+			returnVal = new Contact( _key, valueMap );
 		}
 		
 		return returnVal;

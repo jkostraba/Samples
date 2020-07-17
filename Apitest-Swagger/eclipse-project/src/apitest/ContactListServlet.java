@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 
 
 
@@ -51,8 +52,10 @@ public class ContactListServlet extends HttpServlet {
 				String name = decodedUrl.substring(URI_Prefix.length());
 				Contact contact = ContactStorage.getInstance().get(name);
 				String jsonStr = EMPTY_JSON;
+				JsonWriter writer = JsonUtils.makeWriter();
 				if( contact!=null ) {
-					jsonStr = contact.toJson();
+					contact.toJson(writer);
+					jsonStr = JsonUtils.closeWriter(writer);
 				}
 				response.getWriter().println(jsonStr);
 			} else {
@@ -75,7 +78,7 @@ public class ContactListServlet extends HttpServlet {
 		//
 		try {
 			reader.beginArray();
-			Contact contact = Contact.fromJson( reader );
+			Contact contact = Contact.fromJson( "", reader );
 			ContactStorage.getInstance().put( contact );
 			reader.endArray();
 		} catch( Exception ex ) {

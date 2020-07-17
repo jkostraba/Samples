@@ -17,9 +17,9 @@ public class ContactStorage {
 
 	// when this singleton is created, put a few records in it - for demo purposes
 	private ContactStorage(){
-		personMap.put("John", new Contact( "jk@somewhere.com", "John", "12 Anon Dr", "602-377-anon"));
-		personMap.put("Braden", new Contact( "bc@somewhere.com", "Braden", "9914 Anon St", "415-200-anon"));
-		personMap.put("Mike", new Contact( "mike@somewhere.com", "Mike", "415 Anon Ct", "719-411-anon"));
+		personMap.put("jk@somewhere.com", new Contact( "jk@somewhere.com", "John", "12 Anon Dr", "602-377-anon"));
+		personMap.put("bc@somewhere.com", new Contact( "bc@somewhere.com", "Braden", "9914 Anon St", "415-200-anon"));
+		personMap.put("mike@somewhere.com", new Contact( "mike@somewhere.com", "Mike", "415 Anon Ct", "719-411-anon"));
 	}
 
 	public Contact get(String key) {
@@ -28,6 +28,10 @@ public class ContactStorage {
 
 	public void put(Contact person) {
 		personMap.put(person.getKey(), person);
+	}
+	
+	public Contact delete(String key) {
+		return personMap.remove(key);
 	}
 
 	public ArrayList<Contact> getContacts() {

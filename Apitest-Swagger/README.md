@@ -23,3 +23,7 @@ could create a schema for the contact (contact.email, contact.firstName, contact
 However, I don't want to limit the contact schema in the interface - I want the
 contact to be schema-less, with the exception of the primary key, the email address.
 
+Project Dependencies: </br>
+Apache HTTP Components: https://hc.apache.org/ </br>
+Google GSON JSON Library: https://github.com/google/gson </br>
+

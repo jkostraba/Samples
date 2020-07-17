@@ -1,8 +1,6 @@
 package apitest;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -28,21 +26,14 @@ public class ContactsServlet extends HttpServlet {
 		
 		try {
 		
-			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			JsonWriter writer = new JsonWriter(new OutputStreamWriter(baos, "UTF-8"));
-			writer.setIndent("   ");
-			writer.beginArray();
+			JsonWriter writer = JsonUtils.makeWriter();
 	    
 			List<Contact> contacts = ContactStorage.getInstance().getContacts();
 			for( Contact contact : contacts ) {
-				contact.toJsonObject( writer );
+				contact.toJson( writer );
 			}
-			
-			writer.endArray();
-			writer.flush();
 	    
-			String jsonStr = baos.toString();
-			writer.close();
+			String jsonStr = JsonUtils.closeWriter(writer);
 			response.getWriter().println(jsonStr);
 
 		} catch( Exception ex ) {
